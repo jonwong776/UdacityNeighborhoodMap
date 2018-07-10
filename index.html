@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Hoboken Food Neighborhood Map</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="css/style.css">
+    </head>
+    <body>
+        <!-- Overall container holding both the sidebar and the map -->
+        <div class="container">
+            <!-- Container for the sidebar -->
+            <div class="options-box">
+                <h1>Unqiue Hoboken Restaurants</h1>
+
+                <div class="filter">
+                    <!-- Filter textbox and submit button, both monitored with Knockout.JS -->
+                    <input id="filter-text" type="text" placeholder="Filter Me!" data-bind="value: filterText">
+                    <input id="filter-action" type="button" value="Filter" data-bind="click: rebuildList">
+                </div>
+
+                <!-- Creating dynamic list of locations from Knockout.JS observable array -->
+                <ul data-bind="foreach: listView">
+                    <li>
+                        <!-- List items are highlighted when moused over, controlled by Knockout.JS -->
+                        <span data-bind="text: title, click: $parent.passToInfoWindow, event: { mouseover: $parent.normalToHighlight, mouseout: $parent.highlightToNormal }"></span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Container for the map -->
+            <div id="map"></div>
+        </div>
+
+        <!-- Loading scripts -->
+        <script src="js/lib/knockout-3.4.2.js"></script>
+        <script src="js/lib/jquery-3.3.1.min.js"></script>
+        <script src="js/app.js"></script>
+        <!-- Asynchronously loads Google Maps API with error handling -->
+        <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDelLVw1t3DQIl2Xij0bKSNbUrmoHQBS_g&v=3&callback=startIt" onerror="mapError()">
+        </script>
+    </body>
+</html>
